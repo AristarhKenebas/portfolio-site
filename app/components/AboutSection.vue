@@ -1,5 +1,5 @@
 <template>
-  <section class="px-6 md:px-16 lg:px-32 py-24 border-t border-subtle">
+  <section class="animate-section px-6 md:px-16 lg:px-32 py-24 border-t border-subtle">
     <p class="text-accent font-mono text-xs tracking-widest mb-8">// about</p>
     <div class="max-w-2xl">
       <p class="text-primary text-lg leading-relaxed mb-4">

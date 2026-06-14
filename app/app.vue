@@ -56,3 +56,7 @@ body { margin: 0; }
 .hover\:text-accent:hover { color: var(--color-accent); }
 .hover\:border-accent:hover { border-color: var(--color-accent); }
 </style>
+
+<script setup lang="ts">
+useScrollAnimation()
+</script>

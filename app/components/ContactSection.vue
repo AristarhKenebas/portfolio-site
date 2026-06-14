@@ -1,10 +1,10 @@
 <template>
-  <section class="px-6 md:px-16 lg:px-32 py-24 border-t border-[#1a1a1a]">
-    <p class="text-[#ff6eb4] font-mono text-xs tracking-widest mb-8">// contact</p>
+  <section class="px-6 md:px-16 lg:px-32 py-24 border-t border-subtle">
+    <p class="text-accent font-mono text-xs tracking-widest mb-8">// contact</p>
     <div class="flex flex-col gap-3 max-w-xs">
       <a v-for="link in contacts" :key="link.label" :href="link.url" target="_blank"
-        class="flex justify-between font-mono text-sm text-[#666] hover:text-[#ff6eb4] transition-colors group">
-        <span class="text-[#333] group-hover:text-[#ff6eb4]">{{ link.label }}</span>
+        class="flex justify-between font-mono text-sm text-muted hover:text-accent transition-colors group">
+        <span class="text-subtle group-hover:text-accent transition-colors">{{ link.label }}</span>
         <span>{{ link.value }}</span>
       </a>
     </div>

@@ -7,28 +7,28 @@
     <!-- Контент -->
     <div class="relative z-10">
       <div class="flex items-center gap-3 mb-6">
-        <p class="text-[#ff6eb4] font-mono text-sm tracking-widest">~/portfolio</p>
+        <p class="text-accent font-mono text-sm tracking-widest">~/portfolio</p>
         <span v-if="config.available"
-          class="border border-[#ff6eb4]/40 text-[#ff6eb4] font-mono text-xs px-2 py-1 animate-pulse">
+          class="border border-accent/40 text-accent font-mono text-xs px-2 py-1 animate-pulse">
           open to work
         </span>
       </div>
 
       <h1 class="font-mono text-4xl md:text-7xl font-bold mb-4 leading-tight">
         {{ firstName }}<br>
-        <span class="text-[#ff6eb4]">{{ lastName }}</span>
+        <span class="text-accent">{{ lastName }}</span>
       </h1>
 
-      <p class="text-[#888] text-sm font-mono mb-2">{{ config.title }} · {{ config.location }}</p>
+      <p class="text-secondary text-sm font-mono mb-2">{{ config.title }} · {{ config.location }}</p>
 
-      <p class="text-[#ccc] text-lg md:text-xl max-w-xl mb-8 font-light leading-relaxed">
+      <p class="text-secondary text-lg md:text-xl max-w-xl mb-8 font-light leading-relaxed">
         {{ config.description }}
       </p>
 
       <div class="flex gap-4 flex-wrap">
         <a v-for="link in primaryContacts" :key="link.label"
           :href="link.url" target="_blank"
-          class="border border-[#ff6eb4] text-[#ff6eb4] px-6 py-2 font-mono text-sm hover:bg-[#ff6eb4] hover:text-[#0a0a0a] transition-all duration-200">
+          class="border border-accent text-accent px-6 py-2 font-mono text-sm hover:bg-accent hover:text-[var(--color-base)] transition-all duration-200">
           {{ link.label }}
         </a>
       </div>

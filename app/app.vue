@@ -1,6 +1,14 @@
 <template>
   <div class="min-h-screen bg-base text-primary font-inter">
-    <ThemeToggle />
+    <div class="fixed top-6 right-6 z-50 flex items-center gap-2">
+      <button @click="showAuth = true"
+        class="border border-subtle px-3 py-2 font-mono text-xs text-muted hover:border-accent hover:text-accent transition-all duration-200 bg-base">
+        {{ '⊙ admin' }}
+      </button>
+      <ThemeToggle />
+    </div>
+
+    <AuthModal :show="showAuth" @close="showAuth = false" />
     <HeroSection />
     <AboutSection />
     <SkillsSection />
@@ -60,6 +68,7 @@ body { margin: 0; }
 <script setup lang="ts">
 const { get } = useApi()
 
+const showAuth = ref(false)
 const profile = ref<any>(null)
 const skills = ref<any[]>([])
 const projects = ref<any[]>([])

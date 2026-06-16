@@ -1,7 +1,7 @@
 <template>
   <button
     @click="toggleTheme"
-    class="fixed top-6 right-6 z-50 border border-subtle px-3 py-2 font-mono text-xs text-muted hover:border-accent hover:text-accent transition-all duration-200 bg-base"
+    class="border border-subtle px-3 py-2 font-mono text-xs text-muted hover:border-accent hover:text-accent transition-all duration-200 bg-base"
   >
     {{ isDark ? '☀ light' : '◑ dark' }}
   </button>

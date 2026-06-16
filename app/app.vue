@@ -11,6 +11,8 @@
     <AuthModal :show="showAuth" @close="showAuth = false" />
     <HeroSection />
     <AboutSection />
+    <CurrentlySection />
+    <WakaSection />
     <SkillsSection />
     <ProjectsSection />
     <ContactSection />

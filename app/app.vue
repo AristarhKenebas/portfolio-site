@@ -58,5 +58,33 @@ body { margin: 0; }
 </style>
 
 <script setup lang="ts">
+const { get } = useApi()
+
+const profile = ref<any>(null)
+const skills = ref<any[]>([])
+const projects = ref<any[]>([])
+const currently = ref<any[]>([])
+const github = ref<any>(null)
+
+onMounted(async () => {
+  const [p, s, pr, c, g] = await Promise.all([
+    get('/api/profile'),
+    get('/api/skills'),
+    get('/api/projects'),
+    get('/api/currently'),
+    get('/api/github'),
+  ])
+  profile.value = p
+  skills.value = s
+  projects.value = pr
+  currently.value = c
+  github.value = g
+})
+
+provide('profile', profile)
+provide('skills', skills)
+provide('projects', projects)
+provide('currently', currently)
+provide('github', github)
 useScrollAnimation()
 </script>

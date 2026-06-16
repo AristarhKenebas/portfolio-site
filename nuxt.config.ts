@@ -8,6 +8,11 @@ export default defineNuxtConfig({
     preference: 'system',
     fallback: 'dark',
   },
+  runtimeConfig: {
+    public: {
+      apiUrl: 'http://localhost:3001'
+    }
+  },
   app: {
     head: {
       title: 'Aristarh Kenebas',

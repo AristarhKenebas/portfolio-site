@@ -32,11 +32,19 @@
 </template>
 
 <script setup lang="ts">
-const { config, contacts } = usePortfolioData()
+const profile = inject<Ref<any>>('profile')
 
-const nameParts = config.name.split(' ')
-const firstName = nameParts[0]
-const lastName = nameParts[1] ?? ''
+const firstName = computed(() => profile?.value?.name?.split(' ')[0] ?? 'Aristarh')
+const lastName = computed(() => profile?.value?.name?.split(' ')[1] ?? 'Kenebas')
+const config = computed(() => profile?.value ?? {
+  available: true,
+  title: 'Junior Developer',
+  location: 'Ukraine → Germany',
+  description: 'Self-taught developer.',
+})
 
-const primaryContacts = contacts.slice(0, 2)
+const primaryContacts = [
+  { label: 'github', url: 'https://github.com/AristarhKenebas' },
+  { label: 'email', url: 'mailto:arikkenebas09@gmail.com' },
+]
 </script>

@@ -2,8 +2,8 @@
   <section class="animate-section px-6 md:px-16 lg:px-32 py-24 border-t border-subtle">
     <p class="text-accent font-mono text-xs tracking-widest mb-8">// projects</p>
     <div class="grid md:grid-cols-2 gap-4 max-w-4xl">
-      <div v-for="project in projects" :key="project.name"
-        class="animate-skill border border-subtle border border-subtle p-6 hover:border-accent transition-all duration-200 group bg-card">
+      <div v-for="project in projects" :key="project.id ?? project.name"
+        class="animate-card border border-subtle p-6 hover:border-accent transition-all duration-200 group bg-card">
         <h3 class="font-mono text-primary mb-2 group-hover:text-accent transition-colors">
           {{ project.name }}
         </h3>
@@ -24,5 +24,7 @@
 </template>
 
 <script setup lang="ts">
-const { projects } = usePortfolioData()
+import type { Ref } from 'vue'
+const projectsData = inject<Ref<any[]>>('projects')
+const projects = computed(() => projectsData?.value ?? [])
 </script>

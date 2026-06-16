@@ -79,7 +79,7 @@ onMounted(async () => {
   const [p, s, pr, c, g] = await Promise.all([
     get('/api/profile'),
     get('/api/skills'),
-    get('/api/projects'),
+    get('/api/projects?featured=true'),
     get('/api/currently'),
     get('/api/github'),
   ])

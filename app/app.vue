@@ -12,6 +12,7 @@
     <HeroSection />
     <AboutSection />
     <CurrentlySection />
+    <YoutubeSection />
     <WakaSection />
     <SkillsSection />
     <ProjectsSection />
@@ -76,20 +77,23 @@ const skills = ref<any[]>([])
 const projects = ref<any[]>([])
 const currently = ref<any[]>([])
 const github = ref<any>(null)
+const youtube = ref<any>(null)
 
 onMounted(async () => {
-  const [p, s, pr, c, g] = await Promise.all([
+  const [p, s, pr, c, g, yt] = await Promise.all([
     get('/api/profile'),
     get('/api/skills'),
     get('/api/projects?featured=true'),
     get('/api/currently'),
     get('/api/github'),
+    get('/api/youtube'),
   ])
   profile.value = p
   skills.value = s
   projects.value = pr
   currently.value = c
   github.value = g
+  youtube.value = yt
 })
 
 provide('profile', profile)
@@ -97,5 +101,6 @@ provide('skills', skills)
 provide('projects', projects)
 provide('currently', currently)
 provide('github', github)
+provide('youtube', youtube)
 useScrollAnimation()
 </script>

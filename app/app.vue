@@ -37,7 +37,6 @@
 </template>
 
 <style>
-/* Твои стили остаются без изменений */
 * { box-sizing: border-box; }
 body { margin: 0; }
 .font-mono { font-family: 'Monaspace Neon', monospace; }
@@ -62,7 +61,9 @@ body { margin: 0; }
   --color-secondary: #666;
   --color-card: #fae0ec;
 }
-
+.animate-section,
+.animate-card,
+.animate-skill {opacity: 0; }
 .bg-base { background-color: var(--color-base); }
 .text-primary { color: var(--color-primary); }
 .text-accent { color: var(--color-accent); }
@@ -81,6 +82,7 @@ body { margin: 0; }
 <script setup lang="ts">
 import { nextTick } from 'vue'
 
+const colorMode = useColorMode()
 const { get } = useApi()
 
 const isAppReady = ref(false)
@@ -94,6 +96,21 @@ const github = ref<any>(null)
 const youtube = ref<any>(null)
 const { initScrollAnimations } = useScrollAnimation()
 
+const faviconUrl = computed(() => {
+  return colorMode.value === 'dark' ? '/favicon_light.ico' : '/favicon.ico'
+})
+
+useHead(() => ({
+  link: [
+    {
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: colorMode.value === 'dark' ? '/favicon.ico' : '/favicon-light.ico',
+      key: 'favicon',
+    }
+  ]
+}))
+
 const onLoaderDone = async () => {
   const { gsap } = await import('gsap')
   
@@ -103,7 +120,8 @@ const onLoaderDone = async () => {
     ease: 'power3.out',
     onComplete: async () => {
       mainContent.value?.classList.remove('pointer-events-none')
-      await nextTick() 
+      await nextTick()
+      await nextTick()
       initScrollAnimations()
     }
   })

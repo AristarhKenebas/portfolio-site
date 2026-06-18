@@ -1,10 +1,15 @@
 import { onUnmounted } from 'vue'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export const useScrollAnimation = () => {
-  const initScrollAnimations = () => {
+  const initScrollAnimations = async () => {
+    const { gsap } = await import('gsap')
+    const { ScrollTrigger } = await import('gsap/ScrollTrigger')
     gsap.registerPlugin(ScrollTrigger)
+
+    // Даём браузеру один кадр на окончательный layout
+    await new Promise(r => requestAnimationFrame(r))
+    await new Promise(r => requestAnimationFrame(r))
+
     ScrollTrigger.refresh()
 
     gsap.utils.toArray('.animate-section').forEach((section) => {
@@ -15,55 +20,55 @@ export const useScrollAnimation = () => {
           y: 0,
           duration: 0.8,
           ease: 'power2.out',
+          clearProps: 'transform',
           scrollTrigger: {
             trigger: section as Element,
             start: 'top 85%',
             once: true,
-          },
-          clearProps: 'transform'
+          }
         }
       )
     })
 
+    gsap.set('.animate-card', { opacity: 0, y: 30 })
+
     ScrollTrigger.batch('.animate-card', {
-      start: 'top 85%',
+      start: 'top 88%',
       once: true,
       onEnter: (batch) => {
-        gsap.fromTo(batch,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out',
-            clearProps: 'transform'
-          }
-        )
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: 'power2.out',
+          clearProps: 'transform',
+        })
       }
     })
+
+    gsap.set('.animate-skill', { opacity: 0, y: 15 })
 
     ScrollTrigger.batch('.animate-skill', {
       start: 'top 90%',
       once: true,
       onEnter: (batch) => {
-        gsap.fromTo(batch,
-          { opacity: 0, y: 15 }, 
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            stagger: 0.05,
-            ease: 'power2.out',
-            clearProps: 'transform'
-          }
-        )
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.04,
+          ease: 'power2.out',
+          clearProps: 'transform',
+        })
       }
     })
   }
 
   onUnmounted(() => {
-    ScrollTrigger.getAll().forEach(t => t.kill())
+    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+      ScrollTrigger.getAll().forEach(t => t.kill())
+    })
   })
 
   return { initScrollAnimations }

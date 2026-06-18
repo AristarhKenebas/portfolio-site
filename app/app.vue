@@ -5,7 +5,9 @@
         class="border border-subtle px-3 py-2 font-mono text-xs text-muted hover:border-accent hover:text-accent transition-all duration-200 bg-base">
         {{ '⊙ admin' }}
       </button>
-      <ThemeToggle />
+      <ClientOnly>
+        <ThemeToggle />
+      </ClientOnly>
     </div>
 
     <AuthModal :show="showAuth" @close="showAuth = false" />
@@ -14,6 +16,7 @@
     <CurrentlySection />
     <YoutubeSection />
     <WakaSection />
+    <GithubContributions />
     <SkillsSection />
     <ProjectsSection />
     <ContactSection />

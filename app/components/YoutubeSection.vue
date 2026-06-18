@@ -3,7 +3,7 @@
     <p class="text-accent font-mono text-xs tracking-widest mb-8">// youtube</p>
 
     <div class="flex items-center gap-4 mb-10">
-      <img v-if="channel.avatar" :src="channel.avatar" :alt="channel.name"
+      <img v-if="channel.avatar" :src="getProxiedImage(channel.avatar)" :alt="channel.name"
         class="w-14 h-14 object-cover border border-subtle" />
       <div>
         <p class="font-mono text-primary text-sm">{{ channel.name }}</p>
@@ -21,7 +21,7 @@
       <a v-for="video in channel.videos" :key="video.id" :href="video.url" target="_blank"
         class="animate-card group">
         <div class="aspect-video overflow-hidden border border-subtle mb-2">
-          <img :src="video.thumbnail" :alt="video.title"
+          <img :src="getProxiedImage(video.thumbnail)" :alt="video.title"
             class="w-full h-full object-cover group-hover:opacity-80 transition-opacity duration-200" />
         </div>
         <p class="font-mono text-xs text-primary group-hover:text-accent transition-colors line-clamp-2">
@@ -47,5 +47,10 @@ const formatNumber = (n: string | number) => {
   if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + 'M'
   if (num >= 1_000) return (num / 1_000).toFixed(1) + 'K'
   return String(num)
+}
+
+const getProxiedImage = (url: string) => {
+  if (!url) return ''
+  return `/api/youtube/image-proxy?url=${encodeURIComponent(url)}`
 }
 </script>

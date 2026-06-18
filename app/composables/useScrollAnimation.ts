@@ -1,13 +1,15 @@
+import { onUnmounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export const useScrollAnimation = () => {
-  onMounted(() => {
+  const initScrollAnimations = () => {
     gsap.registerPlugin(ScrollTrigger)
+    ScrollTrigger.refresh()
 
     gsap.utils.toArray('.animate-section').forEach((section) => {
       gsap.fromTo(section as Element,
-        { opacity: 0, y: 60 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
@@ -15,48 +17,54 @@ export const useScrollAnimation = () => {
           ease: 'power2.out',
           scrollTrigger: {
             trigger: section as Element,
-            start: 'top 80%',
-          }
-        }
-      )
-    })
-
-    gsap.utils.toArray('.animate-card').forEach((card, i) => {
-      gsap.fromTo(card as Element,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          delay: i * 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: card as Element,
             start: 'top 85%',
-          }
+            once: true,
+          },
+          clearProps: 'transform'
         }
       )
     })
 
-    gsap.utils.toArray('.animate-skill').forEach((skill, i) => {
-      gsap.fromTo(skill as Element,
-        { opacity: 0, scale: 0.8 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.4,
-          delay: i * 0.05,
-          ease: 'back.out(1.7)',
-          scrollTrigger: {
-            trigger: skill as Element,
-            start: 'top 90%',
+    ScrollTrigger.batch('.animate-card', {
+      start: 'top 85%',
+      once: true,
+      onEnter: (batch) => {
+        gsap.fromTo(batch,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power2.out',
+            clearProps: 'transform'
           }
-        }
-      )
+        )
+      }
     })
-  })
+
+    ScrollTrigger.batch('.animate-skill', {
+      start: 'top 90%',
+      once: true,
+      onEnter: (batch) => {
+        gsap.fromTo(batch,
+          { opacity: 0, y: 15 }, 
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.05,
+            ease: 'power2.out',
+            clearProps: 'transform'
+          }
+        )
+      }
+    })
+  }
 
   onUnmounted(() => {
     ScrollTrigger.getAll().forEach(t => t.kill())
   })
+
+  return { initScrollAnimations }
 }
